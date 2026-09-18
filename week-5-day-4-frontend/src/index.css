@@ -1,0 +1,481 @@
+/* ------------------------------------------------------------------ */
+/* Tokens                                                              */
+/* ------------------------------------------------------------------ */
+:root {
+  --ink: #16232b;
+  --ink-soft: #47535a;
+  --paper: #efeae0;
+  --paper-raised: #f8f5ec;
+  --line: #d8d0be;
+  --accent: #b8862e;
+  --accent-ink: #2a1f0d;
+
+  --available: #2f7d4f;
+  --available-bg: #e4f0e7;
+  --borrowed: #a83a32;
+  --borrowed-bg: #f5e6e3;
+
+  --genre-fiction: #3f6b77;
+  --genre-technology: #b8862e;
+  --genre-business: #7b5ea6;
+  --genre-autobiography: #4a5a8c;
+  --genre-default: #6b6558;
+
+  --font-display: "Fraunces", "Iowan Old Style", serif;
+  --font-body: "IBM Plex Sans", -apple-system, sans-serif;
+
+  --radius-sm: 3px;
+  --radius-md: 6px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  color-scheme: light;
+}
+
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+button,
+input,
+select {
+  font-family: inherit;
+}
+
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* ------------------------------------------------------------------ */
+/* Page shell                                                          */
+/* ------------------------------------------------------------------ */
+.page {
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: 40px 24px 80px;
+}
+
+.page-header {
+  border-bottom: 1px solid var(--line);
+  padding-bottom: 20px;
+  margin-bottom: 28px;
+}
+
+.page-header__eyebrow {
+  margin: 0 0 2px;
+  color: var(--ink-soft);
+  font-size: 0.9rem;
+}
+
+.page-header h1 {
+  margin: 0;
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 2.5rem;
+  letter-spacing: -0.01em;
+}
+
+/* ------------------------------------------------------------------ */
+/* Search                                                              */
+/* ------------------------------------------------------------------ */
+.search-row {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  margin-bottom: 28px;
+}
+
+.search-bar {
+  position: relative;
+  flex: 1;
+  max-width: 480px;
+}
+
+.search-bar__label {
+  display: block;
+  font-size: 0.85rem;
+  color: var(--ink-soft);
+  margin-bottom: 6px;
+}
+
+.search-bar__input {
+  width: 100%;
+  padding: 11px 36px 11px 14px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
+  background: var(--paper-raised);
+  color: var(--ink);
+  font-size: 1rem;
+}
+
+.search-bar__input::placeholder {
+  color: #9a9284;
+}
+
+.search-bar__clear {
+  position: absolute;
+  right: 8px;
+  bottom: 7px;
+  width: 26px;
+  height: 26px;
+  border: none;
+  background: transparent;
+  color: var(--ink-soft);
+  font-size: 1.2rem;
+  line-height: 1;
+  cursor: pointer;
+  border-radius: 50%;
+}
+
+.search-bar__clear:hover {
+  background: var(--line);
+}
+
+.search-row__status {
+  color: var(--ink-soft);
+  font-size: 0.9rem;
+  white-space: nowrap;
+}
+
+/* ------------------------------------------------------------------ */
+/* Layout                                                               */
+/* ------------------------------------------------------------------ */
+.layout {
+  display: grid;
+  grid-template-columns: 1fr 300px;
+  gap: 32px;
+  align-items: start;
+}
+
+.layout__sidebar {
+  position: sticky;
+  top: 24px;
+}
+
+@media (max-width: 860px) {
+  .layout {
+    grid-template-columns: 1fr;
+  }
+  .layout__sidebar {
+    position: static;
+  }
+}
+
+/* ------------------------------------------------------------------ */
+/* Book grid + cards                                                   */
+/* ------------------------------------------------------------------ */
+.book-grid {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+  gap: 16px;
+}
+
+.book-card {
+  background: var(--paper-raised);
+  border: 1px solid var(--line);
+  border-left: 4px solid var(--genre-default);
+  border-radius: var(--radius-sm);
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.book-card.genre-fiction {
+  border-left-color: var(--genre-fiction);
+}
+.book-card.genre-technology {
+  border-left-color: var(--genre-technology);
+}
+.book-card.genre-business {
+  border-left-color: var(--genre-business);
+}
+.book-card.genre-autobiography {
+  border-left-color: var(--genre-autobiography);
+}
+
+.book-card__id {
+  color: var(--ink-soft);
+  font-size: 0.78rem;
+  margin-bottom: 6px;
+}
+
+.book-card__title {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 1.15rem;
+  margin: 0;
+  line-height: 1.25;
+}
+
+.book-card__author {
+  margin: 2px 0 0;
+  color: var(--ink-soft);
+}
+
+.book-card__genre {
+  margin: 0 0 10px;
+  color: var(--ink-soft);
+  font-size: 0.85rem;
+}
+
+.book-card__footer {
+  margin-top: auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.book-card__delete {
+  background: none;
+  border: none;
+  color: var(--ink-soft);
+  font-size: 0.85rem;
+  cursor: pointer;
+  padding: 4px 2px;
+  text-decoration: underline;
+  text-decoration-color: transparent;
+  transition: text-decoration-color 0.15s ease;
+}
+
+.book-card__delete:hover {
+  color: var(--borrowed);
+  text-decoration-color: var(--borrowed);
+}
+
+/* ------------------------------------------------------------------ */
+/* Badges                                                               */
+/* ------------------------------------------------------------------ */
+.badge {
+  display: inline-block;
+  padding: 3px 10px;
+  border-radius: 999px;
+  font-size: 0.78rem;
+  white-space: nowrap;
+}
+
+.badge--available {
+  background: var(--available-bg);
+  color: var(--available);
+}
+
+.badge--borrowed {
+  background: var(--borrowed-bg);
+  color: var(--borrowed);
+}
+
+/* ------------------------------------------------------------------ */
+/* State panels (loading / error / empty)                              */
+/* ------------------------------------------------------------------ */
+.state-panel {
+  border: 1px dashed var(--line);
+  border-radius: var(--radius-md);
+  padding: 48px 24px;
+  text-align: center;
+  color: var(--ink-soft);
+}
+
+.state-panel--error {
+  border-color: var(--borrowed);
+  color: var(--borrowed);
+}
+
+.state-panel__detail {
+  font-size: 0.85rem;
+  margin-top: 6px;
+}
+
+.spinner {
+  display: inline-block;
+  width: 22px;
+  height: 22px;
+  border: 3px solid var(--line);
+  border-top-color: var(--accent);
+  border-radius: 50%;
+  animation: spin 0.7s linear infinite;
+  margin-bottom: 10px;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* ------------------------------------------------------------------ */
+/* Add-book form                                                       */
+/* ------------------------------------------------------------------ */
+.add-form {
+  background: var(--paper-raised);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-md);
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.add-form__heading {
+  font-family: var(--font-display);
+  font-size: 1.2rem;
+  font-weight: 600;
+  margin: 0 0 4px;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.field label {
+  font-size: 0.85rem;
+  color: var(--ink-soft);
+}
+
+.field input,
+.field select {
+  padding: 9px 10px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
+  background: #fff;
+  color: var(--ink);
+  font-size: 0.95rem;
+}
+
+.add-form__error {
+  margin: 0;
+  color: var(--borrowed);
+  font-size: 0.85rem;
+}
+
+.add-form__submit {
+  margin-top: 4px;
+  padding: 10px 16px;
+  border: none;
+  border-radius: var(--radius-sm);
+  background: var(--accent);
+  color: var(--accent-ink);
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.add-form__submit:disabled {
+  opacity: 0.6;
+  cursor: default;
+}
+
+.add-form__submit:hover:not(:disabled) {
+  background: #a5772a;
+}
+
+/* ------------------------------------------------------------------ */
+/* Toast                                                                */
+/* ------------------------------------------------------------------ */
+.toast {
+  position: fixed;
+  left: 50%;
+  bottom: 28px;
+  transform: translateX(-50%);
+  background: var(--ink);
+  color: var(--paper-raised);
+  padding: 12px 20px;
+  border-radius: var(--radius-md);
+  font-size: 0.9rem;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+  animation: toast-in 0.2s ease-out;
+  max-width: 90vw;
+}
+
+@keyframes toast-in {
+  from {
+    opacity: 0;
+    transform: translate(-50%, 8px);
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, 0);
+  }
+}
+
+/* ------------------------------------------------------------------ */
+/* Confirm dialog                                                       */
+/* ------------------------------------------------------------------ */
+.confirm-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(22, 35, 43, 0.45);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  z-index: 10;
+}
+
+.confirm-dialog {
+  background: var(--paper-raised);
+  border-radius: var(--radius-md);
+  padding: 24px;
+  max-width: 360px;
+  width: 100%;
+}
+
+.confirm-dialog h2 {
+  margin: 0 0 10px;
+  font-family: var(--font-display);
+  font-size: 1.25rem;
+}
+
+.confirm-dialog p {
+  margin: 0 0 20px;
+  color: var(--ink-soft);
+}
+
+.confirm-dialog__actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+.confirm-dialog__cancel,
+.confirm-dialog__confirm {
+  padding: 9px 16px;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--line);
+  background: var(--paper);
+  color: var(--ink);
+  cursor: pointer;
+  font-size: 0.9rem;
+}
+
+.confirm-dialog__confirm {
+  background: var(--borrowed);
+  border-color: var(--borrowed);
+  color: #fff;
+}
+
+.confirm-dialog__confirm:hover {
+  background: #8f312a;
+}
